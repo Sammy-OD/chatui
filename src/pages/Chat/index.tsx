@@ -16,7 +16,7 @@ const Chat: React.FC = () => {
   useEffect(() => {
     if (data.room === undefined) return navigate('/')
 
-    client.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${data.room}/`, 'echo-protocol');
+    client.current = new WebSocket(`ws://2da1-102-89-34-233.eu.ngrok.io/ws/chat/${data.room}/`, 'echo-protocol');
 
     client.current.onopen = () => console.log('WebSocket connected')
     client.current.onclose = () => console.log('WebSocket disconnected')
