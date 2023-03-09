@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import Messages from '../../components/Messages'
 import { useApp } from '../../context/AppContext'
@@ -9,14 +9,13 @@ const Chat: React.FC = () => {
   const {data}: any = useApp();
   const [message, setMessage] = useState<string>('')
   const [messages, setMessages] = useState<{user: string, text: string, time: string}[]>([])
-
-  const location = useLocation();
+  
   const navigate = useNavigate();
 
   useEffect(() => {
     if (data.room === undefined) return navigate('/')
 
-    client.current = new WebSocket(`ws://2da1-102-89-34-233.eu.ngrok.io/ws/chat/${data.room}/`, 'echo-protocol');
+    client.current = new WebSocket(`${import.meta.env.VITE_BASEURI}/${data.room}/`, 'echo-protocol');
 
     client.current.onopen = () => console.log('WebSocket connected')
     client.current.onclose = () => console.log('WebSocket disconnected')
